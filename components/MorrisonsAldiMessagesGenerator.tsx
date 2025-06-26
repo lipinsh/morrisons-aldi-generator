@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import * as XLSX from 'xlsx';
+import { subtractHour, timeToMinutes, minutesToTime } from './timeUtils';
 
 interface FuelPinData {
   [key: string]: {
@@ -241,22 +242,7 @@ export default function MorrisonsAldiMessagesGenerator() {
     }
   };
 
-  const subtractHour = (timeStr: string): string => {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    const newHours = hours - 1;
-    return `${String(newHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-  };
-
-  const timeToMinutes = (timeStr: string): number => {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return hours * 60 + minutes;
-  };
-
-  const minutesToTime = (minutes: number): string => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-  };
+  // time utility functions are imported from './timeUtils'
 
   const isSameDate = (date1: Date, date2: Date): boolean => {
     return date1.toDateString() === date2.toDateString();
